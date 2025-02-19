@@ -12,7 +12,7 @@ require("dotenv").config();
 //         const uniqueId = `Loan_${Date.now()}`; 
 
 //         const response = await axios.post(
-//             "https://api.digitap.ai/v1/generate-esign",
+//            
 //             {
 //                 uniqueId: uniqueId,
 //                 signers: [{ email, mobile, name, location }],

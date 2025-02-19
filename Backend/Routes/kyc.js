@@ -20,7 +20,7 @@ router.post("/initiate-kyc", async (req, res) => {
 
     try {
         
-        const url="https://api.digitap.ai/ent/v3/kyc/intiate-kyc-auto"
+        const url=process.env.DIGITAP_BASE_URL_INTIATE_KYC_AUTO;
 
         const response = await fetch(url, {
             method: "POST",

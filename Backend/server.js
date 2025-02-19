@@ -1,6 +1,5 @@
 const express =require("express");
 const {connectDb}=require("./config/database")
-const cors =require("cors")
 
 const cookieParser = require("cookie-parser");
 const authRouter=require("./Routes/authRoutes")
@@ -11,9 +10,12 @@ const bankStatementAnalysis=require("./Routes/bankstatement")
 const fileUpload = require('express-fileupload');
 
 require("dotenv").config();
- const app=express();
- app.use(cors({
- }));
+const app=express();
+
+const cors = require("cors");
+app.use(cors());
+
+ 
 
  app.get("/",(req,res)=>{
      res.send("hii from server")
@@ -28,22 +30,46 @@ require("dotenv").config();
  app.use("/",esignRouter);
  app.use("/",ekyc);
  app.use("/",bankStatementAnalysis)
-
  
+ 
+ const dbConfig = require("./config/dbConfig");
+ const port = process.env.PORT || 4000;
 
+ app.listen(port, () => console.log(`Node server started at ${port}`));
+ 
+  
+  // connectDb ()
+  // .then(()=>{
+  //   console.log("database connection succesfully");
+  //   app.listen(4000,()=>{
+  //     console.log("server is running on  port 4000")
+  //  })
+  // })
+  // .catch((err)=>{
+  //   console.error("database cannot be connected!")
+  // });
+ 
+ 
+ 
   
   
-  connectDb ()
-  .then(()=>{
-    console.log("database connection succesfully");
-    app.listen(4000,()=>{
-      console.log("server is running on  port 4000")
-   })
-  })
-  .catch((err)=>{
-   console.error("database cannot be connected!")
-  });
- 
- 
-
+  
+  // app.use(bodyParser.json());
+  
+  // const usersRoute = require("./routes/usersRoute");
+  // const bankRoutes = require("./routes/bankRoutes");
+  // const fileRoutes = require("./routes/fileRoutes");
+  // const downloadReport= require('./routes/downloadReport');
+  
+  // const parseMiddleware = require('./middlewares/parseMiddleware');
+  
+  // const app = express();
+  // parseMiddleware(app); 
+  
+  // app.use("/api/users", usersRoute);
+  // app.use("/api/bank", bankRoutes);
+  // app.use("/api/file",fileRoutes);
+  // app.use('/api/download-report', downloadReport);
+  
+  
  

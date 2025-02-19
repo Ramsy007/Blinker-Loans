@@ -92,8 +92,8 @@ const FormData = require('form-data');
 
 
 const User = require("../Models/user");
-const CARTBI_UPLOAD_URL = "https://cartbi.com/api/upload";
-const CARTBI_DOWNLOAD_URL = "https://cartbi.com/api/downloadFile";
+const CARTBI_UPLOAD_URL = process.env.CARDBI_URL;
+const CARTBI_DOWNLOAD_URL = process.env.CARDBI_DOWNLOAD;
 require("dotenv").config();
 
 
