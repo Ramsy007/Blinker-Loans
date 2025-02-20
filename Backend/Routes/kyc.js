@@ -20,7 +20,8 @@ router.post("/initiate-kyc", async (req, res) => {
 
     try {
         
-        const url=process.env.DIGITAP_BASE_URL_INTIATE_KYC_AUTO;
+        const url=process.env.INITIATE_KYC;
+        console.log(url);
 
         const response = await fetch(url, {
             method: "POST",
@@ -54,6 +55,8 @@ router.post("/initiate-kyc", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
 router.post("/submit-otp",async(req,res)=>{
     const {otp}=req.body;
     if(!otp){
@@ -63,7 +66,7 @@ router.post("/submit-otp",async(req,res)=>{
     
     try{
        
-            const url="https://api.digitap.ai/ent/v3/kyc/submit-otp"
+        const url= process.env.SUBMIT_OTP_KYC;
         const response = await fetch(url, {
             method: "POST",
             headers: {

@@ -2,8 +2,13 @@ import React from "react";
 import { FaDownload } from "react-icons/fa";
 import { Navbar } from "./Navbar";
 import Footer from "./Footer";
+import { useNavigate } from 'react-router-dom';
 
 const CreditScore = () => {
+  const navigate=useNavigate();
+  const handleSubmit=()=>{
+    navigate("/enter-adhar");
+  };
   return (
     <>
       <Navbar/>
@@ -35,11 +40,11 @@ const CreditScore = () => {
           
           {/* Loan Eligibility (60%) */}
           <div className="bg-yellow-400 p-8 rounded-lg w-3/5 text-black border border-yellow-500 relative">
-            <p className="text-xl">Hi, John Doe!</p>
+          <p className="text-xl">Hi, {localStorage.getItem("userName") || "User"}!</p>
             <h2 className="text-2xl font-bold mt-3">Credit Score</h2>
             <p className="text-xl mt-3">You are eligible for maximum</p>
             <h1 className="text-4xl font-bold text-red-600">₹1,00,000 loan amount</h1>
-            <button className="mt-6 bg-red-700 text-white px-5 py-3 rounded text-lg cursor-pointer">
+            <button onClick={handleSubmit} className="mt-6 bg-red-700 text-white px-5 py-3 rounded text-lg cursor-pointer">
               Begin the next game →
             </button>
             <img src="/flash-head.png" alt="Flash Head" className="absolute -bottom-1 right-1 w-55 h-auto" />

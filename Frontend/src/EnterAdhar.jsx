@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Footer from "./Footer";
 import { Navbar } from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 const EnterAdhar = () => {
   // State variables for form inputs and errors
+  const navigate = useNavigate();
   const [adhar, setAdhar] = useState("");
   const [email, setEmail] = useState("");
   const [adharError, setAdharError] = useState("");
   const [emailError, setEmailError] = useState("");
-
+  
   // Aadhar validation regex (must be exactly 12 digits)
   const adharRegex = /^[0-9]{12}$/;
 
@@ -16,7 +18,8 @@ const EnterAdhar = () => {
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => { 
+    
     e.preventDefault();
     
     // Reset errors
@@ -26,18 +29,37 @@ const EnterAdhar = () => {
     // Validate Aadhar
     if (!adharRegex.test(adhar)) {
       setAdharError("Aadhar number must be exactly 12 digits.");
+      return;
     }
 
     // Validate Email
     if (!emailRegex.test(email)) {
       setEmailError("Please enter a valid email address.");
+      return;
     }
 
-    // Proceed with submission if no errors
-    if (adharRegex.test(adhar) && emailRegex.test(email)) {
-      alert("Form submitted successfully!");
+    try {
+      const response = await fetch("http://localhost:8000/api/ekyc/initiate-kyc", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ uid: adhar }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("KYC initiated successfully!");
+        navigate("/adharotp");
+      } else {
+        alert(data.error || "Failed to initiate KYC.");
+      }
+    } catch (error) {
+      console.error("Error initiating KYC:", error);
+      alert("Something went wrong!");
     }
   };
+
 
   return (
     <>

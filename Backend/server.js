@@ -8,6 +8,7 @@ const esignRouter=require("./Routes/e-signRoutes")
 const ekyc=require("./Routes/kyc")
 const bankStatementAnalysis=require("./Routes/bankstatement")
 const fileUpload = require('express-fileupload');
+const panKyc = require("./Routes/pan-kyc");
 
 require("dotenv").config();
 const app=express();
@@ -26,11 +27,13 @@ app.use(cors());
  app.use(bodyparser.json());
  app.use(fileUpload());
 
- app.use("/",authRouter);
- app.use("/",esignRouter);
- app.use("/",ekyc);
- app.use("/",bankStatementAnalysis)
- 
+ app.use("/api/auth",authRouter);
+ app.use("/api/esign",esignRouter);
+ app.use("/api/ekyc",ekyc);
+ app.use("/api/bankStatement",bankStatementAnalysis);
+ app.use("/api/okyc", panKyc);
+
+
  
  const dbConfig = require("./config/dbConfig");
  const port = process.env.PORT || 4000;

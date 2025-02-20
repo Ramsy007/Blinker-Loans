@@ -24,6 +24,8 @@ const OTP = () => {
       let newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
+      
+      // Move to next input if value is entered
       if (value !== "" && index < otp.length - 1) {
         document.getElementById(`otp-${index + 1}`).focus();
       }
@@ -39,15 +41,8 @@ const OTP = () => {
   const handleVerifyOTP = async () => {
     setLoading(true);
     setMessage("");
-    
-    const phone = localStorage.getItem("phone")?.trim(); // Ensure no extra spaces
-    const otpCode = otp.join(""); // Convert OTP array to string
 
-    if (!phone) {
-      setMessage("Phone number is missing. Please try again.");
-      setLoading(false);
-      return;
-    }
+    const otpCode = otp.join(""); // Convert OTP array to string
 
     if (otpCode.length !== 6) {
       setMessage("Please enter a valid 6-digit OTP.");
@@ -56,43 +51,16 @@ const OTP = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8000/api/auth/verify-otp", { otp: otpCode, phone });
-      setMessage(response.data.message);
+      const response = await axios.post("http://localhost:8000/api/ekyc/submit-otp", { otp: otpCode });
 
       if (response.status === 200) {
         alert("OTP Verified Successfully!");
-        localStorage.removeItem("phone");
-        navigate("/credit-score"); // Redirect after successful verification
+        navigate("/loan"); // Redirect after successful verification
       }
+
+      setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response?.data?.message || "Error verifying OTP.");
-    }
-
-    setLoading(false);
-  };
-
-  const handleResendOtp = async () => {
-    const storedPhone = localStorage.getItem("phone");
-
-    if (!storedPhone) {
-      setMessage("Phone number missing. Request OTP again.");
-      return;
-    }
-
-    setLoading(true);
-    setMessage("");
-
-    try {
-      const response = await axios.post("http://localhost:8000/api/auth/verify-otp", { phone: storedPhone.trim() });
-
-      if (response.status === 200) {
-        setTimer(180);
-        setMessage("OTP Resent Successfully!");
-      } else {
-        setMessage(response.data.message || "Failed to resend OTP.");
-      }
-    } catch (error) {
-      setMessage("Something went wrong! Try again later.");
     }
 
     setLoading(false);
@@ -139,9 +107,7 @@ const OTP = () => {
             {loading ? "Verifying..." : "Submit"}
           </button>
 
-          <p className="text-white text-md mt-4 cursor-pointer" onClick={handleResendOtp}>
-            Resend OTP
-          </p>
+          <p className="text-white text-md mt-4 cursor-pointer">Resend OTP</p>
           <p className="text-white text-lg font-semibold">{formatTime()}</p>
         </div>
       </div>

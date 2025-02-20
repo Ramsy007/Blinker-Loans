@@ -7,6 +7,7 @@ export const Navbar = () => {
   const navbarStyle = {
     background: "rgba(244, 244, 244, 0.29)",
     backdropFilter: "blur(7.4px)",
+    zIndex: 50,
   };
 
   return (

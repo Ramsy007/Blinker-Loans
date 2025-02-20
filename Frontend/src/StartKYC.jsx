@@ -4,15 +4,16 @@ import Footer from "./Footer";
 import { Navbar } from "./Navbar";
 
 const StartKYC = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [pan, setPan] = useState("");
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false); // Loader ke liye state
 
   const validatePAN = (pan) => /^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan);
   const validatePhone = (phone) => /^[0-9]{10}$/.test(phone);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
 
@@ -26,8 +27,55 @@ const StartKYC = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      alert("Form submitted successfully!");
-      navigate("/Otp"); // Redirect to the OTP page
+      setLoading(true);
+      try {
+        const panResponse = await fetch("http://localhost:8000/api/Okyc/validate-pan", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ pan }),
+        });
+
+        const panData = await panResponse.json();
+
+        if (!panResponse.ok) {
+          throw new Error(panData.error || "PAN verification failed.");
+        }
+
+        // Extract the name from PAN response
+        const userName = panData.user?.name || "Unknown";
+
+        // Save phone and user name in local storage
+        localStorage.setItem("phone", phone);
+        localStorage.setItem("userName", userName);
+        console.log(userName);
+
+        //Sending-otp
+
+        const response = await fetch("http://localhost:8000/api/auth/send-otp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ phone, panNumber: pan }),
+        });
+
+        const data = await response.json();
+        console.log("DATA AT FRONTEND  ", data);
+        setLoading(false);
+
+        if (response.ok) {
+          alert("OTP Sent Successfully!");
+          navigate("/Otp"); // OTP Page pe redirect
+        } else {
+          alert(data.message || "Failed to send OTP.");
+        }
+      } catch (error) {
+        setLoading(false);
+        alert("Something went wrong! Check console for details.");
+        console.error("Error sending OTP:", error);
+      }
     }
   };
 
@@ -68,8 +116,9 @@ const StartKYC = () => {
             <button
               type="submit"
               className="w-full bg-red-600 text-white py-3 rounded mt-4 text-lg hover:bg-red-700 border border-white cursor-pointer"
+              disabled={loading}
             >
-              Submit
+              {loading ? "Sending OTP..." : "Submit"}
             </button>
           </form>
         </div>
