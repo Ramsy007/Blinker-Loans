@@ -30,6 +30,17 @@ const OTP = () => {
     }
   };
 
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      if (otp[index] === "" && index > 0) {
+        document.getElementById(`otp-${index - 1}`).focus();
+        let newOtp = [...otp];
+        newOtp[index - 1] = ""; // Previous box ka value bhi delete karega
+        setOtp(newOtp);
+      }
+    }
+  };
+
   const formatTime = () => {
     const minutes = Math.floor(timer / 60);
     const seconds = timer % 60;
@@ -39,9 +50,9 @@ const OTP = () => {
   const handleVerifyOTP = async () => {
     setLoading(true);
     setMessage("");
-    
-    const phone = localStorage.getItem("phone")?.trim(); // Ensure no extra spaces
-    const otpCode = otp.join(""); // Convert OTP array to string
+
+    const phone = localStorage.getItem("phone")?.trim();
+    const otpCode = otp.join("");
 
     if (!phone) {
       setMessage("Phone number is missing. Please try again.");
@@ -62,7 +73,7 @@ const OTP = () => {
       if (response.status === 200) {
         alert("OTP Verified Successfully!");
         localStorage.removeItem("phone");
-        navigate("/credit-score"); // Redirect after successful verification
+        navigate("/credit-score");
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Error verifying OTP.");
@@ -125,6 +136,7 @@ const OTP = () => {
                 className="w-14 h-14 text-3xl font-bold text-center bg-yellow-400 text-black rounded-lg"
                 value={otp[index]}
                 onChange={(e) => handleChange(e, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
               />
             ))}
           </div>

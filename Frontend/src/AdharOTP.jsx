@@ -32,6 +32,15 @@ const OTP = () => {
     }
   };
 
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && otp[index] === "" && index > 0) {
+      let newOtp = [...otp];
+      newOtp[index - 1] = ""; // Clear previous input
+      setOtp(newOtp);
+      document.getElementById(`otp-${index - 1}`).focus();
+    }
+  };
+
   const formatTime = () => {
     const minutes = Math.floor(timer / 60);
     const seconds = timer % 60;
@@ -70,18 +79,14 @@ const OTP = () => {
     <>
       <div
         className="w-full min-h-[100vh] flex items-center justify-center"
-        style={{
-          background: "radial-gradient(circle, #B20000 0%, #4C0000 100%)",
-        }}
+        style={{ background: "radial-gradient(circle, #B20000 0%, #4C0000 100%)" }}
       >
         <Navbar />
         <div className="bg-[#4d0101] p-10 rounded-lg text-center w-[450px] h-[500px] shadow-lg mx-auto flex flex-col justify-center">
           <h2 className="text-white text-3xl font-bold mb-6">
             Enter <span className="text-yellow-400">OTP</span>
           </h2>
-          <p className="text-white text-lg mb-6">
-            We have sent OTP to your number
-          </p>
+          <p className="text-white text-lg mb-6">We have sent OTP to your number</p>
 
           <div className="flex justify-center gap-4 mb-6">
             {otp.map((_, index) => (
@@ -93,6 +98,7 @@ const OTP = () => {
                 className="w-14 h-14 text-3xl font-bold text-center bg-yellow-400 text-black rounded-lg"
                 value={otp[index]}
                 onChange={(e) => handleChange(e, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
               />
             ))}
           </div>

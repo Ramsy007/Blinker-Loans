@@ -1,9 +1,57 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Footer from "./Footer";
 import { Navbar } from "./Navbar";
 import { FaDownload } from "react-icons/fa";
 
+const authToken = import.meta.env.VITE_APP_AUTH_TOKEN;
+
+
 const Loan = () => {
+  const fileInputRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (file.type !== "application/pdf") {
+      alert("Only PDF files are allowed.");
+      return;
+    }
+
+    setUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("http://localhost:8000/api/bankStatement/upload-bank-statement", {
+        method: "POST",
+        headers: {
+          "Authorization": authToken,
+          
+        },
+        body: formData,
+      });
+      
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("File uploaded successfully!");
+      } else {
+        alert(`Upload failed: ${result.message}`);
+      }
+    } catch (error) {
+      alert("Error uploading file. Please try again.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleSubmitUpload = () => {
+    fileInputRef.current.click();
+  };
+
   return (
     <>
       <Navbar />
@@ -43,16 +91,24 @@ const Loan = () => {
               </span>{" "}
               statement for further assessment
             </h2>
-            <p className="text-black text-sm mt-2">file type (pdf only)</p>
-            <button className="w-full sm:w-[50%] md:w-[40%] lg:w-[25%] h-[60px] bg-gradient-to-l from-[#c80d0d] to-[#b10f0f] rounded-lg flex justify-center items-center text-white font-semibold mt-4 cursor-pointer">
-              Upload Bank Statement
+            <p className="text-black text-sm mt-2">File type (PDF only)</p>
+            <button
+              onClick={handleSubmitUpload}
+              className="w-full sm:w-[50%] md:w-[40%] lg:w-[25%] h-[60px] bg-gradient-to-l from-[#c80d0d] to-[#b10f0f] rounded-lg flex justify-center items-center text-white font-semibold mt-4 cursor-pointer"
+              disabled={uploading}
+            >
+              {uploading ? "Uploading..." : "Upload Bank Statement"}
             </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              accept="application/pdf"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
           </div>
 
-          {/* Red semicircle */}
           <div className="absolute right-[-10vw] bottom-[-10vw] w-[30vw] h-[30vw] sm:w-[25vw] sm:h-[25vw] bg-[#c00606] rounded-full z-0" />
-
-          {/* Flash Running Loan Image */}
           <img
             src="/flash-running-loan.png"
             alt="Flash Running Loan"
@@ -60,7 +116,7 @@ const Loan = () => {
           />
         </div>
 
-        <div className="bg-[#58050f] p-6 sm:p-8 mt-20 mb-20 :p-10 rounded-xl shadow-lg w-full sm:w-[98%] md:w-[80%] lg:w-[70%] flex flex-col items-center text-center text-white text-center shadow-lg">
+        <div className="bg-[#58050f] p-6 sm:p-8 mt-20 mb-20 rounded-xl shadow-lg w-full sm:w-[98%] md:w-[80%] lg:w-[70%] flex flex-col items-center text-center text-white">
           <h2 className="text-xl font-bold text-yellow-400 mb-4">
             Key Fact Statement!
           </h2>

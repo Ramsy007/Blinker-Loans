@@ -98,16 +98,21 @@ require("dotenv").config();
 
 
 const estimatedSalary = (data) => {
+    if (!data || !data.data || !data.data[0]) {
+        console.error("Invalid data structure:", data);
+        return "Salary data unavailable";
+    }
+
     let salary;
-    if (data.data[0].salary !== null) {
+    if (data.data[0].salary && data.data[0].salary.length > 0) {
         const salaries = data.data[0].salary.map(item => item.totalSalary);
-        const minSalary = Math.min(...salaries);
-        salary = minSalary.toString();
+        salary = Math.min(...salaries).toString();
     } else {
-        salary = data.data[0].recurringIncome[0].recurringTransaction[0].amount;
+        salary = data.data[0]?.recurringIncome?.[0]?.recurringTransaction?.[0]?.amount || "Salary data unavailable";
     }
     return salary;
 };
+
 
 
 const agent = new https.Agent({
@@ -154,8 +159,16 @@ const uploadBsaCartApiInitiate = async (file) => {
       form.append('documentDetails', JSON.stringify(documentDetails));
 
       // Upload to CARTBI API
-      console.log("api_auth",process.env.CARTAPI_AUTH)
-      const response = await fetch("https://cartbi.com/api/upload", {
+      console.log("api_auth",process.env.CARTAPI_AUTH);
+
+//       const response = await fetch(API_UPLOAD, { method: 'POST', headers, body });
+// console.log("Upload Response:", response);
+
+// if (!response.ok) {
+//     console.error("Error Response:", await response.text());
+//     throw new Error(`HTTP error! Status: ${response.status}`);
+// }
+      const response = await fetch(process.env.API_UPLOAD, {
         method: 'POST',
         headers: {
           'auth-Token': process.env.CARTAPI_AUTH,
@@ -212,7 +225,7 @@ const downloadBsaCartApi = async (docId) => {
 
 router.post("/upload-bank-statement",async(req,res)=>{
     try {
-       console.log("hii");
+    //    console.log("hii");
         const bucketName = process.env.AWS_S3_BUCKET;
         // console.log(req);
 
@@ -233,6 +246,7 @@ router.post("/upload-bank-statement",async(req,res)=>{
             const downloadResponse = await downloadBsaCartApi(docId);
 
             const estimatedSalaryValue = estimatedSalary(downloadResponse);
+            console.log('salary',estimatedSalaryValue);
 
             res.status(200).json({
                 message: 'File uploaded successfully',

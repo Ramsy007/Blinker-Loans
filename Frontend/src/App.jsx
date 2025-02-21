@@ -10,6 +10,7 @@ import EnterAdhar from "./EnterAdhar";
 import CreditScore from "./CreditScore";
 import Loan from "./Loan";
 import AdharOTP from "./AdharOTP";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path="/credit-score" element={<CreditScore />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/adharotp" element={<AdharOTP />} />
-        
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
