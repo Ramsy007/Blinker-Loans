@@ -11,7 +11,6 @@ const LandingPage = () => {
     <div className="w-full h-[3670px] bg-[radial-gradient(50%_50%_at_50%_50%,#B20000_0%,#4C0000_100%)]">
     
     <Home/>
-    <LoanCard/>
     <EMIBox/>
     <Steps/>
     <Footer/>

@@ -83,10 +83,12 @@ const StartKYC = () => {
     <>
       <Navbar />
       <div
-        className="w-full min-h-screen flex items-center justify-center"
-        style={{ background: "radial-gradient(circle, #B20000 0%, #4C0000 100%)" }}
+        className="w-full min-h-screen flex items-center justify-center bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/start-kyc-bg.png')",
+        }}
       >
-        <div className="bg-[#58050f] p-10 rounded-xl shadow-lg w-[500px] text-center">
+        <div className=" p-10 rounded-xl shadow-lg w-[500px] text-center">
           <h2 className="text-white text-3xl font-bold mb-6">
             Start Your <span className="text-yellow-400">KYC</span>
           </h2>

@@ -35,7 +35,7 @@ const OTP = () => {
       if (otp[index] === "" && index > 0) {
         document.getElementById(`otp-${index - 1}`).focus();
         let newOtp = [...otp];
-        newOtp[index - 1] = ""; // Previous box ka value bhi delete karega
+        newOtp[index - 1] = "";
         setOtp(newOtp);
       }
     }
@@ -73,7 +73,7 @@ const OTP = () => {
       if (response.status === 200) {
         alert("OTP Verified Successfully!");
         localStorage.removeItem("phone");
-        navigate("/credit-score");
+        navigate("/loan");
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Error verifying OTP.");
@@ -112,13 +112,13 @@ const OTP = () => {
   return (
     <>
       <div
-        className="w-full min-h-[100vh] flex items-center justify-center"
+        className="w-full min-h-screen flex items-center justify-center bg-cover bg-center"
         style={{
-          background: "radial-gradient(circle, #B20000 0%, #4C0000 100%)",
+          backgroundImage: "url('/otp-background.png')",
         }}
       >
         <Navbar />
-        <div className="bg-[#4d0101] p-10 rounded-lg text-center w-[450px] h-[500px] shadow-lg mx-auto flex flex-col justify-center">
+        <div className=" p-10 rounded-lg text-center w-[90%] max-w-[450px] h-[500px] flex flex-col justify-center">
           <h2 className="text-white text-3xl font-bold mb-6">
             Enter <span className="text-yellow-400">OTP</span>
           </h2>
@@ -133,7 +133,7 @@ const OTP = () => {
                 id={`otp-${index}`}
                 type="text"
                 maxLength="1"
-                className="w-14 h-14 text-3xl font-bold text-center bg-yellow-400 text-black rounded-lg"
+                className="w-12 h-12 sm:w-14 sm:h-14 text-2xl sm:text-3xl font-bold text-center bg-yellow-400 text-black rounded-lg"
                 value={otp[index]}
                 onChange={(e) => handleChange(e, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}

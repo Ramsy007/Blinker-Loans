@@ -63,12 +63,14 @@ const EnterAdhar = () => {
 
   return (
     <>
-      <Navbar />
-      <div
-        className="w-full min-h-screen flex items-center justify-center"
-        style={{ background: "radial-gradient(circle, #B20000 0%, #4C0000 100%)" }}
-      >
-        <div className="bg-[#58050f] p-10 rounded-xl shadow-lg w-[500px] text-center">
+    <div
+    className="w-full min-h-screen flex items-center justify-center bg-cover bg-center"
+    style={{
+      backgroundImage: "url('/enter-adhar-bg.png')",
+    }}
+  >
+    <Navbar />
+    <div className=" p-10 rounded-lg text-center w-[90%] max-w-[450px] h-[500px] flex flex-col justify-center">
           <h2 className="text-white text-3xl font-bold mb-6">
             Enter Aadhar <span className="text-yellow-400">Number</span>
           </h2>

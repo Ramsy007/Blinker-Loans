@@ -1,0 +1,23 @@
+@keyframes lightning {
+    0%, 100% {
+      opacity: 0;
+      filter: brightness(1);
+    }
+    50% {
+      opacity: 1;
+      filter: brightness(2);
+    }
+  }
+  
+  .lightning {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0) 70%);
+    mix-blend-mode: screen;
+    opacity: 0;
+    animation: lightning 1.5s infinite ease-in-out alternate;
+  }
+  

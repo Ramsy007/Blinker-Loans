@@ -2,11 +2,12 @@ import React, { useRef, useState } from "react";
 import Footer from "./Footer";
 import { Navbar } from "./Navbar";
 import { FaDownload } from "react-icons/fa";
-
+import { useNavigate } from "react-router-dom";
 const authToken = import.meta.env.VITE_APP_AUTH_TOKEN;
 
 
 const Loan = () => {
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
 
@@ -51,6 +52,9 @@ const Loan = () => {
   const handleSubmitUpload = () => {
     fileInputRef.current.click();
   };
+  const handleSubmitStartProcess = () => {
+    navigate("/enter-adhar");
+  };
 
   return (
     <>
@@ -61,7 +65,11 @@ const Loan = () => {
           background: "radial-gradient(circle, #B20000 0%, #4C0000 100%)",
         }}
       >
-        <div className="bg-[#58050f] p-6 mt-30 sm:p-8 md:p-10 rounded-xl shadow-lg w-full sm:w-[98%] md:w-[80%] lg:w-[70%] flex flex-col items-center text-center">
+      <div
+      className="p-6 mt-30 sm:p-8 md:p-10 rounded-xl w-full sm:w-[98%] md:w-[80%] lg:w-[70%] flex flex-col items-center text-center bg-cover bg-center"
+      style={{ backgroundImage: "url('/loan-bg.png')" }}
+    >
+        
           <h2 className="text-white text-base sm:text-lg md:text-xl font-semibold">
             Welcome, John Doe Based On Your CIBIL Score, <br />
             Here’s Your Maximum{" "}
@@ -77,7 +85,7 @@ const Loan = () => {
             </p>
           </div>
 
-          <button className="mt-6 bg-yellow-400 text-black font-semibold py-2 px-6 sm:px-8 md:px-10 rounded-lg hover:bg-yellow-500 transition cursor-pointer">
+          <button onClick={handleSubmitStartProcess}  className="mt-6 bg-yellow-400 text-black font-semibold py-2 px-6 sm:px-8 md:px-10 rounded-lg hover:bg-yellow-500 transition cursor-pointer">
             Request Loan
           </button>
         </div>
