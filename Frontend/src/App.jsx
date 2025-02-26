@@ -19,10 +19,21 @@ import ContactUs from "./ContactUs";
 import Disbursed from "./Disbursed";
 import Disbursed2 from "./Disbursed2";
 import Logo from "./Logo";
+import LandingPage2 from "./LandingPage2";
+import { useState } from "react";
+import StartingVideo from "./StartingVideo";
 
 function App() {
+  const [showIntro, setShowIntro] = useState(true);
+
+  function handleVideoEnd(){
+    setShowIntro(false);
+  }
+
   return (
     <BrowserRouter>
+    {showIntro ? (<StartingVideo onVideoEnd={handleVideoEnd}/>)
+     : 
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/apply" element={<Form />} />
@@ -43,7 +54,9 @@ function App() {
         <Route path="/disbursed" element={<Disbursed />} />
         <Route path="/disbursed2" element={<Disbursed2 />} />
         <Route path="/logo" element={<Logo />} />
+        <Route path="/landingpage2" element={<LandingPage2 />} />
       </Routes>
+  }
     </BrowserRouter>
   );
 }

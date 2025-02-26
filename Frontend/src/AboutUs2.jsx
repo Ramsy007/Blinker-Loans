@@ -14,7 +14,7 @@ const AboutUs = () => {
   return (
     <>
     <Navbar/>
-    <div className="bg-gradient-to-br from-red-700 via-red-600 to-yellow-500 min-h-screen p-8 text-white overflow-hidden">
+    <div className="bg-gradient-to-br from-red-900 via-red-800 to-red-950 min-h-screen p-3 text-white overflow-hidden">
       <div className={`max-w-6xl mx-auto ${animate ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
        
         {/* Hero Section */}

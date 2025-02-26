@@ -14,7 +14,7 @@ export const Navbar = () => {
 
   return (
     <nav
-      className="absolute top-0 left-0 w-full p-4 flex justify-end items-center text-white px-10 fixed"
+      className="absolute top-0 left-0 w-full p-3 flex justify-end items-center text-white px-10 fixed"
       style={navbarStyle}
     >
 

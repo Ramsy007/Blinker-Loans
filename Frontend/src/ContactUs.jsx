@@ -87,18 +87,18 @@ const ContactUs = () => {
       
       
       {/* Content Container */}
-      <div className="mt-5 container mx-auto px-4 py-16 relative z-10">
+      <div className="mt-5 container mx-auto px-4 py-10 relative z-10">
         {/* Header */}
         <div className={`text-center mb-16 transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-300">
             Contact Blinker Loan
           </h1>
-          <p className="mt-4 text-xl text-red-100 max-w-2xl mx-auto">
+          <p className="mt-3 text-xl text-red-100 max-w-2xl mx-auto">
             Need lightning-fast assistance? Our team is ready to respond at super speed. Reach out to us through any of the channels below.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Contact Form */}
           <div className={`transition-all duration-700 transform ${animate ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
             <div className="bg-gradient-to-br from-red-800 to-red-900 rounded-2xl p-8 shadow-2xl border border-red-700 relative overflow-hidden">
@@ -191,7 +191,7 @@ const ContactUs = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-3 bg-gradient-to-r from-yellow-500 to-red-500 rounded-lg text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center ${isSubmitting ? 'opacity-75' : ''}`}
+                    className={`cursor-pointer w-full py-3 bg-gradient-to-r from-yellow-500 to-red-500 rounded-lg text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center ${isSubmitting ? 'opacity-75' : ''}`}
                   >
                     {isSubmitting ? (
                       <>

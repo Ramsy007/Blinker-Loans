@@ -8,10 +8,10 @@ import EMIBox from "./EMIBox";
 
 const LandingPage = () => {
   return (
-    <div className="w-full h-[3670px] bg-[radial-gradient(50%_50%_at_50%_50%,#B20000_0%,#4C0000_100%)]">
+    <div className="w-full h-[2270px] bg-[radial-gradient(50%_50%_at_50%_50%,#B20000_0%,#4C0000_100%)]">
     
     <Home/>
-    <EMIBox/>
+    
     <Steps/>
     <Footer/>
 

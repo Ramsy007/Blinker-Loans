@@ -1,0 +1,46 @@
+.container{
+    background-color: transparent;
+    padding: 2rem 2rem 0 2rem;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left h2{
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: #ffe453;
+}
+
+.left button{
+    font-size: 2.2rem;
+    padding: 5px 1.4rem;
+    border-radius: 1rem;
+    background-color: #5c101a;
+    color: white;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.left button:hover{
+    transform: scale(1.05);
+}
+
+.img_cont{
+    width: 50rem;
+}
+
+.img_cont img{
+    width: 80%;
+}
+
+@media(max-width: 425px){
+    .container{
+        flex-direction: column;
+    }
+}
