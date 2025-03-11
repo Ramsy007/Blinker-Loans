@@ -22,6 +22,7 @@ import Logo from "./Logo";
 import LandingPage2 from "./LandingPage2";
 import { useState } from "react";
 import StartingVideo from "./StartingVideo";
+import Address from "./Address";
 
 function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -55,6 +56,7 @@ function App() {
         <Route path="/disbursed2" element={<Disbursed2 />} />
         <Route path="/logo" element={<Logo />} />
         <Route path="/landingpage2" element={<LandingPage2 />} />
+        <Route path="/address" element={<Address />} />
       </Routes>
   }
     </BrowserRouter>

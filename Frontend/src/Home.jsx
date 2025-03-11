@@ -29,9 +29,9 @@ const Home = () => {
       {/* Hero Section */}
       <div className="absolute top-1/4 left-4 md:left-16 text-white text-center md:text-left w-full">
         <h1 className="text-transparent bg-gradient-to-b from-[#ffffff] to-[#ffcb1e] bg-clip-text text-4xl sm:text-5xl md:text-[85px] font-black tracking-wide flex items-center justify-center md:justify-start">
-          Blinker
+          Blinkr
           <img src="/strike.png" alt="Icon" className="w-12 sm:w-16 md:w-[80px] h-12 sm:h-16 md:h-[80px] mx-2 md:mx-4" />
-          Loans
+          Loan
         </h1>
 
         <p className="text-lg sm:text-xl md:text-3xl font-semibold italic mt-2 md:mt-4 tracking-wide">

@@ -58,7 +58,7 @@ const AdharOTP = () => {
     try {
       const response = await axios.post("http://localhost:8000/api/ekyc/submit-otp", { otp: otpCode });
       if (response.status === 200) {
-        alert("OTP Verified Successfully!");
+        
         navigate("/credit-score");
       }
       setMessage(response.data.message);

@@ -23,12 +23,12 @@ const Dashboard = () => {
           </h1>
           <div className="space-y-4 bg-[rgba(0,0,0,0.8)] rounded-3xl p-6">
             {[
-              { label: "Full name", value: "Mohan lal" },
-              { label: "Pan card", value: "XXXXXXXXXXXX" },
-              { label: "Address", value: "XYZ" },
-              { label: "Email address", value: "Mohanlal123@gmail.com" },
-              { label: "Phone number", value: "+91 888 666 8542" },
-              { label: "DOB", value: "XX/XX/XXXX" },
+              { label: "Full name", value: localStorage.getItem("userName") || "User" },
+              { label: "Pan card", value: "CFEPV0555C" },
+              { label: "Address", value: "Belthara Road, Balliyan, Uttar Pradesh - 221715" },
+              { label: "Email address", value: "akishv4@gmail.com" },
+              { label: "Phone number", value: "+91 955 579 7916" },
+              { label: "DOB", value: "21/02/2002" },
             ].map((item, index) => (
               <div key={index} className="flex flex-col">
                 <label className="text-sm font-semibold">{item.label}</label>

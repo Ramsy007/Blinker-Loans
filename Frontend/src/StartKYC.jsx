@@ -66,7 +66,7 @@ const StartKYC = () => {
         setLoading(false);
 
         if (response.ok) {
-          alert("OTP Sent Successfully!");
+          
           navigate("/Otp"); // OTP Page pe redirect
         } else {
           alert(data.message || "Failed to send OTP.");

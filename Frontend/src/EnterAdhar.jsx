@@ -4,40 +4,32 @@ import { Navbar } from "./Navbar";
 import { useNavigate } from "react-router-dom";
 
 const EnterAdhar = () => {
-  // State variables for form inputs and errors
   const navigate = useNavigate();
   const [adhar, setAdhar] = useState("");
   const [email, setEmail] = useState("");
   const [adharError, setAdharError] = useState("");
   const [emailError, setEmailError] = useState("");
-  
-  // Aadhar validation regex (must be exactly 12 digits)
-  const adharRegex = /^[0-9]{12}$/;
+  const [loading, setLoading] = useState(false);
 
-  // Email validation regex (basic email format validation)
+  const adharRegex = /^[0-9]{12}$/;
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  // Handle form submission
-  const handleSubmit = async (e) => { 
-    
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Reset errors
     setAdharError("");
     setEmailError("");
 
-    // Validate Aadhar
     if (!adharRegex.test(adhar)) {
       setAdharError("Aadhar number must be exactly 12 digits.");
       return;
     }
 
-    // Validate Email
     if (!emailRegex.test(email)) {
       setEmailError("Please enter a valid email address.");
       return;
     }
 
+    setLoading(true);
     try {
       const response = await fetch("http://localhost:8000/api/ekyc/initiate-kyc", {
         method: "POST",
@@ -49,7 +41,6 @@ const EnterAdhar = () => {
 
       const data = await response.json();
       if (response.ok) {
-        alert("KYC initiated successfully!");
         navigate("/adharotp");
       } else {
         alert(data.error || "Failed to initiate KYC.");
@@ -57,20 +48,19 @@ const EnterAdhar = () => {
     } catch (error) {
       console.error("Error initiating KYC:", error);
       alert("Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
 
-
   return (
     <>
-    <div
-    className="w-full min-h-screen flex items-center justify-center bg-cover bg-center"
-    style={{
-      backgroundImage: "url('/enter-adhar-bg.png')",
-    }}
-  >
-    <Navbar />
-    <div className=" p-10 rounded-lg text-center w-[90%] max-w-[450px] h-[500px] flex flex-col justify-center">
+      <div
+        className="w-full min-h-screen flex items-center justify-center bg-cover bg-center"
+        style={{ backgroundImage: "url('/enter-adhar-bg.png')" }}
+      >
+        <Navbar />
+        <div className="p-10 rounded-lg text-center w-[90%] max-w-[450px] h-[500px] flex flex-col justify-center">
           <h2 className="text-white text-3xl font-bold mb-6">
             Enter Aadhar <span className="text-yellow-400">Number</span>
           </h2>
@@ -99,9 +89,14 @@ const EnterAdhar = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-red-600 text-white py-3 rounded mt-4 text-lg hover:bg-red-700 border border-white cursor-pointer"
+              className="w-full bg-red-600 text-white py-3 rounded mt-4 text-lg hover:bg-red-700 border border-white cursor-pointer flex justify-center items-center"
+              disabled={loading}
             >
-              Submit
+              {loading ? (
+                <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                "Submit"
+              )}
             </button>
           </form>
         </div>

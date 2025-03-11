@@ -30,7 +30,7 @@ const Footer = () => {
         {/* Contact Us Section */}
         <div className="flex flex-col">
           <h3 className="font-bold text-xl mb-2 tracking-wide">Contact Us</h3>
-          <p className="text-white text-lg tracking-wide">Email: blinkerloans@gmail.com</p>
+          <p className="text-white text-lg tracking-wide">Email: blinkrloan@gmail.com</p>
           <p className="text-white text-lg tracking-wide">Phone: +91 XXXXXXXXXX</p>
           <p className="font-bold text-lg mt-2 tracking-wide">Social Media</p>
           <div className="flex justify-center lg:justify-start space-x-2 mt-1 text-yellow-400 text-3xl">

@@ -28,7 +28,7 @@ const VerifyMobile = () => {
           <input type="checkbox" checked={isChecked} readOnly />
         </div>
         <span className="terms-text">
-          I agree to Blinker Loans’ <strong>Terms & Conditions</strong>
+          I agree to Blinkr Loan’ <strong>Terms & Conditions</strong>
         </span>
       </label>
 

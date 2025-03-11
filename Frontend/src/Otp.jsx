@@ -71,9 +71,9 @@ const OTP = () => {
       setMessage(response.data.message);
 
       if (response.status === 200) {
-        alert("OTP Verified Successfully!");
+        
         localStorage.removeItem("phone");
-        navigate("/loan");
+        navigate("/address");
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Error verifying OTP.");

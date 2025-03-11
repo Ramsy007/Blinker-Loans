@@ -55,19 +55,19 @@ const ContactUs = () => {
       city: "Mumbai",
       address: "Lightning Tower, Floor 26, Financial District, Mumbai 400001",
       phone: "+91 22 4789 0000",
-      email: "mumbai@blinkerloan.com"
+      email: "mumbai@blinkrloan.com"
     },
     {
       city: "Delhi",
       address: "Speedforce Plaza, Connaught Place, New Delhi 110001",
       phone: "+91 11 2345 6789",
-      email: "delhi@blinkerloan.com"
+      email: "gurgaon@blinkrloan.com"
     },
     {
-      city: "Bangalore",
+      city: "Gurgaon",
       address: "Flash Tech Park, Whitefield, Bangalore 560066",
       phone: "+91 80 4123 5678",
-      email: "bangalore@blinkerloan.com"
+      email: "bangalore@blinkrloan.com"
     }
   ];
   
@@ -91,7 +91,7 @@ const ContactUs = () => {
         {/* Header */}
         <div className={`text-center mb-16 transition-all duration-700 transform ${animate ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-300">
-            Contact Blinker Loan
+            Contact Blinkr Loan
           </h1>
           <p className="mt-3 text-xl text-red-100 max-w-2xl mx-auto">
             Need lightning-fast assistance? Our team is ready to respond at super speed. Reach out to us through any of the channels below.
@@ -225,7 +225,7 @@ const ContactUs = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-yellow-400">Call Us</h3>
-                    <p className="text-red-100">Toll Free: 1800-BLINKER (1800-254-6537)</p>
+                    <p className="text-red-100">Toll Free: 1800-BLINKR (1800-254-6537)</p>
                     <p className="text-red-100">Support: +91 98765 43210</p>
                   </div>
                 </div>

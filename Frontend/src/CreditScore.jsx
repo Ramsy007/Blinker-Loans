@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const CreditScore = () => {
   const navigate = useNavigate();
   const handleSubmit = () => {
-    navigate("/enter-adhar");
+    navigate("/disbursed2");
   };
 
   return (
@@ -50,7 +50,7 @@ const CreditScore = () => {
               onClick={handleSubmit}
               className="mt-6 bg-red-700 text-white px-5 py-3 rounded text-lg cursor-pointer"
             >
-              Begin the next game →
+              Request Loan →
             </button>
             <img src="/flash-head.png" alt="Flash Head" className="absolute -bottom-1 right-1 w-20 sm:w-28 md:w-36 h-auto" />
           </div>
