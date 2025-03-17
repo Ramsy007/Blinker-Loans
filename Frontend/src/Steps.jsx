@@ -1,5 +1,5 @@
 import React from "react";
-import DownLoadCredit from "./DownLoadCredit";
+import DownLoadCredit from "./DownloadCredit.jsx";
 
 const Steps = () => {
   return (

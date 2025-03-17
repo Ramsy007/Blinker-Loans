@@ -4,6 +4,7 @@ import axios from "axios";
 import Footer from "./Footer";
 import { Navbar } from "./Navbar";
 import backgroundImage from "/otp1-bg.png"; 
+import VerticalStatus from "./VerticalStatus";
 
 const AdharOTP = () => {
   const navigate = useNavigate();
@@ -105,6 +106,7 @@ const AdharOTP = () => {
           <p className="text-white text-md mt-4 cursor-pointer">Resend OTP</p>
           <p className="text-white text-lg font-semibold">{formatTime()}</p>
         </div>
+        <VerticalStatus currentStepIndex={2} />
       </div>
       <Footer />
     </>

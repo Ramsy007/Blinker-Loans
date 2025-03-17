@@ -1,10 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { Navbar } from "./Navbar";
 import { motion } from "framer-motion";
 import { CheckCircle, FileText, PenTool, CreditCard } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import VerticalStatus from './VerticalStatus';
 
 const steps = [
   {
@@ -33,6 +32,7 @@ const KYCpage = () => {
   ]);
   const [newAddress, setNewAddress] = useState("");
   const [isAdding, setIsAdding] = useState(false);
+  const currentStepIndex = 2;
 
   const handleAddressChange = (index, value) => {
     const newAddresses = [...addresses];
@@ -58,18 +58,9 @@ const KYCpage = () => {
       <Navbar />
       <div
         className="w-full min-h-screen flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('./otp1-bg.png')" }}
+        style={{ backgroundImage: "url('otp1-bg.png')" }}
       >
-        {/* Lightning Animation */}
-        <motion.div
-          animate={{ opacity: [0, 0.5, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute top-0 left-0 w-full h-full bg-yellow-400/10 mix-blend-screen"
-        ></motion.div>
-
-        
-
-        <div className="p-10 rounded-xl shadow-lg w-[500px] text-center">
+        <div className="p-10 rounded-xl w-[500px] text-center">
           <h2 className="text-white text-3xl font-bold mb-6">
             Address Based <span className="text-yellow-400">KYC</span>
           </h2>
@@ -125,7 +116,73 @@ const KYCpage = () => {
           </form>
         </div>
 
-        <VerticalStatus currentStepIndex={2} />
+        {/* Vertical Steps - Modified for responsive design with lines for all steps */}
+        <div className="absolute right-2 md:right-6 lg:right-10 top-1/4 flex flex-col items-end space-y-4 md:space-y-6 text-white">
+          {steps.map((step, index) => {
+            const isLastStep = index === steps.length - 1;
+
+            return (
+              <div
+                key={index}
+                className="flex items-center gap-2 md:gap-3 relative"
+              >
+                {/* Step Label - Left side of icon */}
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.3, duration: 0.5 }}
+                  className={`text-xs md:text-sm font-semibold text-right w-16 md:w-20 ${
+                    index === currentStepIndex ? "text-yellow-400" : ""
+                  }`}
+                >
+                  {step.label}
+                </motion.span>
+
+                {/* Step Indicator with Pulse */}
+                <div className="relative">
+                  <motion.div
+                    className={`relative flex items-center justify-center rounded-full ${
+                      step.completed
+                        ? "bg-green-600" // Green for completed steps
+                        : index === currentStepIndex
+                        ? "bg-yellow-400" // Current step in yellow
+                        : "bg-gray-700" // Future steps in gray
+                    } shadow-md w-10 h-10 md:w-12 md:h-12`}
+                  >
+                    {/* Ring pulse effect for current step */}
+                    {index === currentStepIndex && (
+                      <motion.div
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.7, 0, 0.7] }}
+                        transition={{ repeat: Infinity, duration: 1.5 }}
+                        className="absolute inset-0 border-2 border-yellow-400 rounded-full"
+                        style={{ backgroundColor: "transparent" }}
+                      ></motion.div>
+                    )}
+                    <div
+                      className={`p-2 rounded-full ${
+                        step.completed
+                          ? "bg-white text-red-600" // Icon color for completed steps
+                          : index === currentStepIndex
+                          ? "bg-white text-yellow-400" // Current step icon
+                          : "bg-gray-500" // Future step icon
+                      }`}
+                    >
+                      {step.icon}
+                    </div>
+                  </motion.div>
+
+                  {/* Adding horizontal line for ALL steps, including the last one */}
+
+                  <div
+                    className={`absolute h-1 w-6 md:w-8 lg:w-10 top-1/2 -translate-y-1/2 -right-6 md:-right-8 lg:-right-10 ${
+                      step.completed ? "bg-red-600" : "bg-gray-700"
+                    }`}
+                  ></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
       <Footer />
     </>

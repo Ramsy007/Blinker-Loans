@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const CreditScore = () => {
   const navigate = useNavigate();
   const handleSubmit = () => {
-    navigate("/disbursed2");
+    navigate("/disbursed");
   };
 
   return (

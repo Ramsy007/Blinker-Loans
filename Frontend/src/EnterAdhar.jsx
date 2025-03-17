@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Footer from "./Footer";
 import { Navbar } from "./Navbar";
 import { useNavigate } from "react-router-dom";
-
+import VerticalStatus from "./VerticalStatus";
 const EnterAdhar = () => {
   const navigate = useNavigate();
   const [adhar, setAdhar] = useState("");
@@ -100,6 +100,8 @@ const EnterAdhar = () => {
             </button>
           </form>
         </div>
+        <VerticalStatus currentStepIndex={2} />
+
       </div>
       <Footer />
     </>

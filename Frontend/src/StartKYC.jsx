@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { Navbar } from "./Navbar";
+import Consent from "./Consent"; // Import the Consent component
 
 const StartKYC = () => {
   const navigate = useNavigate();
   const [pan, setPan] = useState("");
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false); // Loader ke liye state
+  const [loading, setLoading] = useState(false);
+  const [agree, setAgree] = useState(false);
+  const [showConsent, setShowConsent] = useState(false); // To show consent popup
 
   const validatePAN = (pan) => /^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan);
   const validatePhone = (phone) => /^[0-9]{10}$/.test(phone);
@@ -22,6 +25,9 @@ const StartKYC = () => {
     }
     if (!validatePhone(phone)) {
       newErrors.phone = "Invalid phone number (must be 10 digits).";
+    }
+    if (!agree) {
+      newErrors.agree = "Please agree to the T&C.";
     }
 
     setErrors(newErrors);
@@ -43,15 +49,11 @@ const StartKYC = () => {
           throw new Error(panData.error || "PAN verification failed.");
         }
 
-        // Extract the name from PAN response
         const userName = panData.user?.name || "Unknown";
 
-        // Save phone and user name in local storage
         localStorage.setItem("phone", phone);
         localStorage.setItem("userName", userName);
         console.log(userName);
-
-        //Sending-otp
 
         const response = await fetch("http://localhost:8000/api/auth/send-otp", {
           method: "POST",
@@ -66,8 +68,7 @@ const StartKYC = () => {
         setLoading(false);
 
         if (response.ok) {
-          
-          navigate("/Otp"); // OTP Page pe redirect
+          navigate("/Otp");
         } else {
           alert(data.message || "Failed to send OTP.");
         }
@@ -82,13 +83,27 @@ const StartKYC = () => {
   return (
     <>
       <Navbar />
+      
+      {/* Show Consent card when showConsent is true */}
+      {showConsent && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <Consent
+            onAgree={() => {
+              setAgree(true);
+              setShowConsent(false);
+            }}
+            onClose={() => setShowConsent(false)}
+          />
+        </div>
+      )}
+      
       <div
         className="w-full min-h-screen flex items-center justify-center bg-cover bg-center"
         style={{
           backgroundImage: "url('/start-kyc-bg.png')",
         }}
       >
-        <div className=" p-10 rounded-xl shadow-lg w-[500px] text-center">
+        <div className="p-10 rounded-xl shadow-lg w-[500px] text-center">
           <h2 className="text-white text-3xl font-bold mb-6">
             Start Your <span className="text-yellow-400">KYC</span>
           </h2>
@@ -115,6 +130,19 @@ const StartKYC = () => {
               />
               {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
             </div>
+            <div className="mb-6 text-left flex items-center">
+              <input
+                type="checkbox"
+                id="agree"
+                checked={agree}
+                onChange={() => setShowConsent(true)} // Show consent pop-up
+                className="mr-2"
+              />
+              <label htmlFor="agree" className="text-white text-lg">
+                I agree to Blinkr Loan's <span className="text-yellow-400">T&C</span>
+              </label>
+            </div>
+            {errors.agree && <p className="text-red-500 text-sm mb-4">{errors.agree}</p>}
             <button
               type="submit"
               className="w-full bg-red-600 text-white py-3 rounded mt-4 text-lg hover:bg-red-700 border border-white cursor-pointer"
@@ -125,6 +153,7 @@ const StartKYC = () => {
           </form>
         </div>
       </div>
+      
       <Footer />
     </>
   );

@@ -73,7 +73,7 @@ const OTP = () => {
       if (response.status === 200) {
         
         localStorage.removeItem("phone");
-        navigate("/address");
+        navigate("/loan");
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Error verifying OTP.");
