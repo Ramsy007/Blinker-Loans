@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-require("dotenv").config();
 const { v4: uuidv4 } = require("uuid");
 
   let transactionId;

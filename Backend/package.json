@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.751.0",
+    "@prisma/client": "^6.5.0",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
@@ -29,6 +30,8 @@
     "multer-storage-cloudinary": "^4.0.0",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.9",
+    "pg": "^8.14.0",
+    "prisma": "^6.5.0",
     "twilio": "^5.4.4",
     "uuid": "^11.0.5"
   },
